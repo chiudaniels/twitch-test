@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package rpc;
+option go_package = "rpc";
+
+// A Hat is a piece of headwear made by a Haberdasher.
+message Movie {
+  string title = 1; // anything but "invisible"
+  int32 year = 2; // i.e. "bowler"
+}
+
+message Movies{
+  repeated Movie data = 1;
+}
+
+message GetAllQueryParam {}
+
+service TestAPI {
+  // MakeHat produces a hat of mysterious, randomly-selected color!
+  rpc GetAll(GetAllQueryParam) returns (Movies);
+}

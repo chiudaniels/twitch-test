@@ -2,14 +2,16 @@ package main
 
 import (
 	"fmt"
-	"log"
+	// "log"
 	"net/http"
 
-	"./router"
+	"./servertest"
+	"./rpc"
 )
 
 func main() {
-	r := router.Router()
-	fmt.Println("Starting server on the port 8080...")
-	log.Fatal(http.ListenAndServe(":8080", r))
-}
+	server := &servertest.Server{} // implements Haberdasher interface
+	twirpHandler := rpc.NewTestAPIServer(server, nil)
+	fmt.Println("server started")
+	http.ListenAndServe(":8080", twirpHandler)
+  }
